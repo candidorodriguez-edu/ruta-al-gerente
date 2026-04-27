@@ -1,0 +1,1285 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ruta al Gerente — Plan de Desarrollo</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;0,700;1,300&family=DM+Mono:wght@400;500&display=swap');
+
+  :root {
+    --negro: #0a0a0a;
+    --rojo: #e8001d;
+    --rojo-dark: #b50016;
+    --oro: #c9a84c;
+    --oro-light: #f0d080;
+    --gris: #1a1a1a;
+    --gris-medio: #2e2e2e;
+    --gris-claro: #888;
+    --blanco: #f5f3ef;
+    --verde: #2ecc71;
+    --amarillo: #f39c12;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--negro);
+    color: var(--blanco);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HERO */
+  .hero {
+    background: linear-gradient(135deg, #0a0a0a 0%, #1a0005 50%, #0a0a0a 100%);
+    border-bottom: 2px solid var(--rojo);
+    padding: 48px 24px 36px;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse, rgba(232,0,29,0.12) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .hero-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--rojo);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  .hero h1 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(40px, 8vw, 72px);
+    letter-spacing: 3px;
+    color: var(--blanco);
+    line-height: 1;
+    margin-bottom: 8px;
+  }
+
+  .hero h1 span { color: var(--rojo); }
+
+  .hero-sub {
+    font-size: 14px;
+    color: var(--gris-claro);
+    font-weight: 300;
+    letter-spacing: 1px;
+  }
+
+  .hero-meta {
+    margin-top: 24px;
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+
+  .meta-item {
+    text-align: center;
+  }
+
+  .meta-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px;
+    color: var(--oro);
+    display: block;
+    line-height: 1;
+  }
+
+  .meta-label {
+    font-size: 11px;
+    letter-spacing: 2px;
+    color: var(--gris-claro);
+    text-transform: uppercase;
+  }
+
+  /* PROGRESS GLOBAL */
+  .progress-global {
+    background: var(--gris);
+    border-bottom: 1px solid #333;
+    padding: 20px 24px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  .progress-global-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+
+  .progress-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--gris-claro);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
+
+  .progress-bar-wrap {
+    flex: 1;
+    background: #111;
+    border-radius: 2px;
+    height: 6px;
+    overflow: hidden;
+  }
+
+  .progress-bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rojo), var(--oro));
+    border-radius: 2px;
+    transition: width 0.6s ease;
+  }
+
+  .progress-pct {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    color: var(--oro);
+    min-width: 48px;
+    text-align: right;
+  }
+
+  /* MAIN LAYOUT */
+  .main {
+    max-width: 900px;
+    margin: 0 auto;
+    padding: 32px 16px 64px;
+  }
+
+  /* INTRO */
+  .intro-block {
+    background: var(--gris);
+    border-left: 3px solid var(--rojo);
+    border-radius: 0 8px 8px 0;
+    padding: 20px 24px;
+    margin-bottom: 40px;
+    font-size: 14px;
+    color: #bbb;
+    line-height: 1.8;
+  }
+
+  .intro-block strong { color: var(--blanco); }
+
+  /* FASE */
+  .fase {
+    margin-bottom: 48px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 1px solid #222;
+    background: var(--gris);
+  }
+
+  .fase-header {
+    padding: 24px;
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    cursor: pointer;
+    user-select: none;
+    transition: background 0.2s;
+    border-bottom: 1px solid #222;
+  }
+
+  .fase-header:hover { background: rgba(255,255,255,0.03); }
+
+  .fase-numero {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 48px;
+    line-height: 1;
+    color: var(--rojo);
+    opacity: 0.4;
+    min-width: 52px;
+  }
+
+  .fase-meta { flex: 1; }
+
+  .fase-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--oro);
+    margin-bottom: 4px;
+  }
+
+  .fase-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px;
+    letter-spacing: 1px;
+    color: var(--blanco);
+    margin-bottom: 4px;
+  }
+
+  .fase-periodo {
+    font-size: 12px;
+    color: var(--gris-claro);
+  }
+
+  .fase-status {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 6px;
+    min-width: 100px;
+  }
+
+  .fase-pct-wrap {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    color: var(--oro);
+  }
+
+  .fase-mini-bar {
+    width: 80px;
+    height: 4px;
+    background: #111;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .fase-mini-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--rojo), var(--oro));
+    border-radius: 2px;
+    transition: width 0.5s ease;
+  }
+
+  .fase-chevron {
+    color: #444;
+    font-size: 18px;
+    margin-top: 4px;
+    transition: transform 0.3s;
+  }
+
+  .fase.open .fase-chevron { transform: rotate(90deg); }
+
+  /* CUERPO DE FASE */
+  .fase-body {
+    display: none;
+    padding: 0;
+  }
+
+  .fase.open .fase-body { display: block; }
+
+  /* OBJETIVO */
+  .objetivo {
+    padding: 20px 24px;
+    background: rgba(232,0,29,0.05);
+    border-bottom: 1px solid #222;
+    font-size: 13px;
+    color: #aaa;
+    line-height: 1.7;
+  }
+
+  .objetivo strong { color: var(--blanco); font-size: 14px; }
+
+  /* TAREAS */
+  .tareas-header {
+    padding: 16px 24px 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gris-claro);
+  }
+
+  .tarea {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 14px 24px;
+    border-bottom: 1px solid #1a1a1a;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+
+  .tarea:hover { background: rgba(255,255,255,0.02); }
+  .tarea:last-of-type { border-bottom: none; }
+
+  .tarea-check {
+    width: 20px;
+    height: 20px;
+    border: 2px solid #444;
+    border-radius: 4px;
+    flex-shrink: 0;
+    margin-top: 1px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+  }
+
+  .tarea.done .tarea-check {
+    background: var(--verde);
+    border-color: var(--verde);
+  }
+
+  .tarea-check::after {
+    content: '✓';
+    font-size: 12px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+
+  .tarea.done .tarea-check::after { opacity: 1; }
+
+  .tarea-texto {
+    flex: 1;
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.5;
+  }
+
+  .tarea.done .tarea-texto {
+    text-decoration: line-through;
+    color: #555;
+  }
+
+  .tarea-badge {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    flex-shrink: 0;
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  .badge-diario { background: rgba(232,0,29,0.15); color: var(--rojo); }
+  .badge-semanal { background: rgba(201,168,76,0.15); color: var(--oro); }
+  .badge-mensual { background: rgba(46,204,113,0.15); color: var(--verde); }
+  .badge-unico { background: rgba(100,100,255,0.15); color: #8888ff; }
+
+  /* AUTOEVALUACION */
+  .autoevaluacion {
+    border-top: 2px solid #222;
+    padding: 20px 24px;
+    background: rgba(201,168,76,0.04);
+  }
+
+  .autoevaluacion-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 18px;
+    letter-spacing: 1px;
+    color: var(--oro);
+    margin-bottom: 16px;
+  }
+
+  .criterio {
+    margin-bottom: 16px;
+  }
+
+  .criterio-label {
+    font-size: 13px;
+    color: #bbb;
+    margin-bottom: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .criterio-label span {
+    font-family: 'DM Mono', monospace;
+    font-size: 11px;
+    color: var(--oro);
+  }
+
+  .estrellas {
+    display: flex;
+    gap: 6px;
+  }
+
+  .estrella {
+    width: 28px;
+    height: 28px;
+    background: #111;
+    border: 1px solid #333;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    transition: all 0.2s;
+    user-select: none;
+  }
+
+  .estrella:hover, .estrella.activa {
+    background: var(--oro);
+    border-color: var(--oro);
+  }
+
+  .nota-autoevaluacion {
+    margin-top: 16px;
+    padding: 12px 16px;
+    background: #111;
+    border-radius: 8px;
+    font-family: 'DM Mono', monospace;
+    font-size: 12px;
+    color: var(--gris-claro);
+    line-height: 1.5;
+  }
+
+  .btn-guardar {
+    margin-top: 16px;
+    background: var(--rojo);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+
+  .btn-guardar:hover { background: var(--rojo-dark); }
+
+  /* CRONOGRAMA */
+  .cronograma {
+    margin-bottom: 48px;
+  }
+
+  .seccion-titulo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 2px;
+    color: var(--gris-claro);
+    text-transform: uppercase;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #222;
+  }
+
+  .timeline {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    padding-bottom: 8px;
+  }
+
+  .mes {
+    flex: 1;
+    min-width: 64px;
+    text-align: center;
+    padding: 8px 4px;
+    border-right: 1px solid #222;
+    position: relative;
+  }
+
+  .mes:last-child { border-right: none; }
+
+  .mes-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 10px;
+    color: var(--gris-claro);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+
+  .mes-bloques { display: flex; flex-direction: column; gap: 3px; }
+
+  .bloque {
+    height: 20px;
+    border-radius: 3px;
+    font-size: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    letter-spacing: 0.5px;
+    overflow: hidden;
+    white-space: nowrap;
+    padding: 0 4px;
+  }
+
+  .bloque-f1 { background: rgba(232,0,29,0.7); }
+  .bloque-f2 { background: rgba(201,168,76,0.7); }
+  .bloque-f3 { background: rgba(46,204,113,0.5); }
+  .bloque-f4 { background: rgba(100,100,255,0.6); }
+  .bloque-vacio { background: transparent; }
+
+  .leyenda {
+    display: flex;
+    gap: 16px;
+    margin-top: 12px;
+    flex-wrap: wrap;
+  }
+
+  .leyenda-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    color: var(--gris-claro);
+  }
+
+  .leyenda-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 2px;
+  }
+
+  /* MENSAJE MOTIVACIONAL */
+  .motivacional {
+    text-align: center;
+    padding: 40px 24px;
+    background: linear-gradient(135deg, rgba(232,0,29,0.08), rgba(201,168,76,0.05));
+    border-radius: 12px;
+    border: 1px solid #222;
+    margin-top: 16px;
+  }
+
+  .motivacional-quote {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(22px, 5vw, 38px);
+    letter-spacing: 2px;
+    color: var(--blanco);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .motivacional-quote span { color: var(--rojo); }
+
+  .motivacional-sub {
+    font-size: 13px;
+    color: var(--gris-claro);
+    font-style: italic;
+  }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: var(--verde);
+    color: white;
+    padding: 12px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0;
+    transform: translateY(16px);
+    transition: all 0.3s;
+    z-index: 999;
+    pointer-events: none;
+  }
+
+  .toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  @media (max-width: 600px) {
+    .hero-meta { gap: 20px; }
+    .fase-header { flex-wrap: wrap; }
+    .fase-status { flex-direction: row; align-items: center; }
+    .fase-numero { font-size: 36px; min-width: 40px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-label">Plan de Desarrollo Profesional</div>
+  <h1>RUTA AL <span>GERENTE</span></h1>
+  <div class="hero-sub">Retail · Jefe de No Ventas → Gerente de Almacén · 12 meses</div>
+  <div class="hero-meta">
+    <div class="meta-item">
+      <span class="meta-num">4</span>
+      <span class="meta-label">Fases</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num">12</span>
+      <span class="meta-label">Meses</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num" id="tareasTotal">0</span>
+      <span class="meta-label">Objetivos</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-num" id="tareasDone">0</span>
+      <span class="meta-label">Completados</span>
+    </div>
+  </div>
+</div>
+
+<!-- PROGRESS GLOBAL -->
+<div class="progress-global">
+  <div class="progress-global-inner">
+    <span class="progress-label">Avance general</span>
+    <div class="progress-bar-wrap">
+      <div class="progress-bar-fill" id="barraGlobal" style="width:0%"></div>
+    </div>
+    <span class="progress-pct" id="pctGlobal">0%</span>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- INTRO -->
+  <div class="intro-block">
+    Este plan está diseñado para una situación específica: <strong>Jefe de No Ventas con experiencia en tienda</strong>, con acceso diario al piso de ventas y con el objetivo de crecimiento ya comunicado al gerente. La ruta no es lineal — algunas fases se ejecutan en paralelo. Lo que importa es que al final de cada fase puedas responder: <strong>¿Tengo evidencia de que crecí?</strong>
+  </div>
+
+  <!-- CRONOGRAMA -->
+  <div class="cronograma">
+    <div class="seccion-titulo">Cronograma Visual — 12 Meses</div>
+    <div class="timeline">
+      <div class="mes">
+        <div class="mes-label">MAY</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f1">F1</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">JUN</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f1">F1</div>
+          <div class="bloque bloque-f2">F2</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">JUL</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f1">F1</div>
+          <div class="bloque bloque-f2">F2</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">AGO</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f2">F2</div>
+          <div class="bloque bloque-f3">F3</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">SEP</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f2">F2</div>
+          <div class="bloque bloque-f3">F3</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">OCT</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f2">F2</div>
+          <div class="bloque bloque-f3">F3</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">NOV</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f3">F3</div>
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">DIC</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f3">F3</div>
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">ENE</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f3">F3</div>
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">FEB</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">MAR</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+      <div class="mes">
+        <div class="mes-label">ABR</div>
+        <div class="mes-bloques">
+          <div class="bloque bloque-f4">F4</div>
+        </div>
+      </div>
+    </div>
+    <div class="leyenda">
+      <div class="leyenda-item"><div class="leyenda-dot bloque-f1"></div> Fase 1: Dominar el lenguaje</div>
+      <div class="leyenda-item"><div class="leyenda-dot bloque-f2"></div> Fase 2: Conectar marketing con ventas</div>
+      <div class="leyenda-item"><div class="leyenda-dot bloque-f3"></div> Fase 3: Ownership fuera de mi área</div>
+      <div class="leyenda-item"><div class="leyenda-dot bloque-f4"></div> Fase 4: Posicionamiento político</div>
+    </div>
+  </div>
+
+  <!-- ====== FASE 1 ====== -->
+  <div class="fase" id="fase1">
+    <div class="fase-header" onclick="toggleFase('fase1')">
+      <div class="fase-numero">01</div>
+      <div class="fase-meta">
+        <div class="fase-tag">Mayo – Julio 2026</div>
+        <div class="fase-titulo">Dominar el Lenguaje del Negocio</div>
+        <div class="fase-periodo">Meses 1 – 3 · Base indispensable</div>
+      </div>
+      <div class="fase-status">
+        <div class="fase-pct-wrap" id="pct1">0%</div>
+        <div class="fase-mini-bar"><div class="fase-mini-fill" id="bar1" style="width:0%"></div></div>
+      </div>
+      <div class="fase-chevron">▶</div>
+    </div>
+    <div class="fase-body">
+      <div class="objetivo">
+        <strong>¿Para qué sirve esta fase?</strong><br>
+        Un gerente habla en números, no en actividades. Hoy tu vocabulario natural es el de marketing. En esta fase vas a adquirir el segundo idioma del negocio: leer reportes de ventas, entender márgenes, y saber de memoria qué secciones van bien y cuáles mal. Sin esta base, las siguientes fases no tienen sustento.
+      </div>
+      <div class="tareas-header">Objetivos de la fase</div>
+
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Leer el reporte de ventas de tu tienda cada lunes y anotar las 3 secciones con mayor caída y las 3 con mayor crecimiento vs año anterior</div>
+        <div class="tarea-badge badge-semanal">Semanal</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Memorizar los números de tu tienda: ¿cuánto vende mensual? ¿Cuál es el margen promedio por dirección? ¿Cuál es el presupuesto vs avance actual?</div>
+        <div class="tarea-badge badge-mensual">Mensual</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Pedirle a tu gerente que te explique cómo se lee el reporte de utilidad mensual y qué línea le duele más seguir</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Estudiar el sheet "GERENTE" del Deber Ser 2025 completo. Por cada responsabilidad anotarte: ¿sé hacerlo? ¿tengo evidencia de que lo sé? ¿necesito aprenderlo?</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Entrar al portal Medallia / VoC al menos 3 veces por semana y leer las alertas de clientes insatisfechos de tu tienda</div>
+        <div class="tarea-badge badge-semanal">Semanal</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Identificar cuáles son las 5 secciones con más merma en tu tienda y aprender a leer el reporte de merma por sección</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Pedirle al gerente que te incluya como observador en su revisión semanal de indicadores (junta de resultados)</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Conocer los objetivos de crédito (cuentas nuevas) de tu tienda, quién los lleva y cuál es el avance actual</div>
+        <div class="tarea-badge badge-semanal">Semanal</div>
+      </div>
+
+      <div class="autoevaluacion">
+        <div class="autoevaluacion-title">⬡ Autoevaluación — Fase 1</div>
+        <p style="font-size:13px; color:#888; margin-bottom:16px;">Respóndete esto al terminar el mes 3. Evalúa del 1 al 5 cada criterio.</p>
+
+        <div class="criterio">
+          <div class="criterio-label">¿Puedo leer un reporte de ventas y explicarlo sin ayuda? <span id="val1a">—</span></div>
+          <div class="estrellas" data-id="1a">
+            <div class="estrella" onclick="calificar('1a',1)">1</div>
+            <div class="estrella" onclick="calificar('1a',2)">2</div>
+            <div class="estrella" onclick="calificar('1a',3)">3</div>
+            <div class="estrella" onclick="calificar('1a',4)">4</div>
+            <div class="estrella" onclick="calificar('1a',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Sé de memoria los indicadores clave de mi tienda? <span id="val1b">—</span></div>
+          <div class="estrellas" data-id="1b">
+            <div class="estrella" onclick="calificar('1b',1)">1</div>
+            <div class="estrella" onclick="calificar('1b',2)">2</div>
+            <div class="estrella" onclick="calificar('1b',3)">3</div>
+            <div class="estrella" onclick="calificar('1b',4)">4</div>
+            <div class="estrella" onclick="calificar('1b',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Estoy siendo incluido en espacios de análisis de resultados? <span id="val1c">—</span></div>
+          <div class="estrellas" data-id="1c">
+            <div class="estrella" onclick="calificar('1c',1)">1</div>
+            <div class="estrella" onclick="calificar('1c',2)">2</div>
+            <div class="estrella" onclick="calificar('1c',3)">3</div>
+            <div class="estrella" onclick="calificar('1c',4)">4</div>
+            <div class="estrella" onclick="calificar('1c',5)">5</div>
+          </div>
+        </div>
+        <div class="nota-autoevaluacion" id="nota1">
+          Evalúate primero para ver tu diagnóstico aquí.
+        </div>
+        <button class="btn-guardar" onclick="guardarFase(1)">Guardar autoevaluación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FASE 2 ====== -->
+  <div class="fase" id="fase2">
+    <div class="fase-header" onclick="toggleFase('fase2')">
+      <div class="fase-numero">02</div>
+      <div class="fase-meta">
+        <div class="fase-tag">Junio – Octubre 2026</div>
+        <div class="fase-titulo">Conectar tu Área con Resultados de Ventas</div>
+        <div class="fase-periodo">Meses 2 – 6 · Tu diferenciador real</div>
+      </div>
+      <div class="fase-status">
+        <div class="fase-pct-wrap" id="pct2">0%</div>
+        <div class="fase-mini-bar"><div class="fase-mini-fill" id="bar2" style="width:0%"></div></div>
+      </div>
+      <div class="fase-chevron">▶</div>
+    </div>
+    <div class="fase-body">
+      <div class="objetivo">
+        <strong>¿Para qué sirve esta fase?</strong><br>
+        Ningún jefe de ventas puede hacer lo que tú puedes: vincular estrategia de marketing directamente con impacto en indicadores. Esa es tu ventaja. Pero hay que dejar de hacer marketing invisible — cada acción tuya tiene que tener un número amarrado que le puedas mostrar al gerente y al director.
+      </div>
+      <div class="tareas-header">Objetivos de la fase</div>
+
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Para cada Venta Nocturna o evento, preparar un brief de resultados: tráfico antes/durante/después, variación vs año anterior por sección impactada, ticket promedio del evento</div>
+        <div class="tarea-badge badge-unico">Por evento</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Presentarle a tu gerente, en formato de 1 página, los resultados de impacto de ventas de tu último evento. Que sea un hábito después de cada activación</div>
+        <div class="tarea-badge badge-unico">Por evento</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Identificar qué sección de tu tienda tiene el ticket promedio más bajo y proponer una estrategia de comunicación interna (POP, capacitación de vendedores, MSI) para subirlo</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Ligar tus materiales POP y señalética a indicadores de conversión: ¿en las secciones con tu material hay mayor o menor caída que en las que no tienen?</div>
+        <div class="tarea-badge badge-mensual">Mensual</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Diseñar una campaña de comunicación interna para impulsar crédito (cuentas nuevas) en piso de ventas. Presentarla como propuesta al gerente</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Aprender a calcular el ROI básico de un evento: inversión en materiales + horas-hombre vs incremento de venta generado</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Mantener un registro mensual propio: "mis acciones de marketing → impacto en ventas". Que sea tu portafolio de evidencia para la conversación con dirección</div>
+        <div class="tarea-badge badge-mensual">Mensual</div>
+      </div>
+
+      <div class="autoevaluacion">
+        <div class="autoevaluacion-title">⬡ Autoevaluación — Fase 2</div>
+        <p style="font-size:13px; color:#888; margin-bottom:16px;">Evalúate al terminar el mes 6.</p>
+
+        <div class="criterio">
+          <div class="criterio-label">¿Tengo al menos 2 casos documentados donde marketing impactó ventas con número? <span id="val2a">—</span></div>
+          <div class="estrellas" data-id="2a">
+            <div class="estrella" onclick="calificar('2a',1)">1</div>
+            <div class="estrella" onclick="calificar('2a',2)">2</div>
+            <div class="estrella" onclick="calificar('2a',3)">3</div>
+            <div class="estrella" onclick="calificar('2a',4)">4</div>
+            <div class="estrella" onclick="calificar('2a',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Mi gerente me asocia ya con resultados de ventas, no solo con materiales? <span id="val2b">—</span></div>
+          <div class="estrellas" data-id="2b">
+            <div class="estrella" onclick="calificar('2b',1)">1</div>
+            <div class="estrella" onclick="calificar('2b',2)">2</div>
+            <div class="estrella" onclick="calificar('2b',3)">3</div>
+            <div class="estrella" onclick="calificar('2b',4)">4</div>
+            <div class="estrella" onclick="calificar('2b',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Tengo un portafolio documentado de impacto de mis acciones? <span id="val2c">—</span></div>
+          <div class="estrellas" data-id="2c">
+            <div class="estrella" onclick="calificar('2c',1)">1</div>
+            <div class="estrella" onclick="calificar('2c',2)">2</div>
+            <div class="estrella" onclick="calificar('2c',3)">3</div>
+            <div class="estrella" onclick="calificar('2c',4)">4</div>
+            <div class="estrella" onclick="calificar('2c',5)">5</div>
+          </div>
+        </div>
+        <div class="nota-autoevaluacion" id="nota2">
+          Evalúate primero para ver tu diagnóstico aquí.
+        </div>
+        <button class="btn-guardar" onclick="guardarFase(2)">Guardar autoevaluación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FASE 3 ====== -->
+  <div class="fase" id="fase3">
+    <div class="fase-header" onclick="toggleFase('fase3')">
+      <div class="fase-numero">03</div>
+      <div class="fase-meta">
+        <div class="fase-tag">Agosto – Enero 2027</div>
+        <div class="fase-titulo">Tomar Ownership Fuera de tu Área</div>
+        <div class="fase-periodo">Meses 4 – 9 · La prueba de fuego</div>
+      </div>
+      <div class="fase-status">
+        <div class="fase-pct-wrap" id="pct3">0%</div>
+        <div class="fase-mini-bar"><div class="fase-mini-fill" id="bar3" style="width:0%"></div></div>
+      </div>
+      <div class="fase-chevron">▶</div>
+    </div>
+    <div class="fase-body">
+      <div class="objetivo">
+        <strong>¿Para qué sirve esta fase?</strong><br>
+        Aquí es donde dejas de ser "el de marketing que entiende de ventas" para convertirte en "el que opera y resuelve". Necesitas tomar responsabilidad sobre al menos un indicador de ventas que hoy no te corresponde formalmente, atacarlo, mejorarlo y documentarlo. Eso es lo que le demuestra a tu gerente que puedes dirigir más allá de tu área.
+      </div>
+      <div class="tareas-header">Objetivos de la fase</div>
+
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Identificar el indicador más débil de tu tienda en el que puedas intervenir con tus capacidades. Puede ser: nulo movimiento, servicio en una sección específica, crédito, o ticket de una dirección</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Presentar al gerente una propuesta de 1 página para atacar ese indicador. Formato: problema / causa / propuesta / KPI de éxito / tiempo</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Ejecutar el proyecto y dar seguimiento quincenal de avance al gerente. Hacerlo visible, sin exagerar</div>
+        <div class="tarea-badge badge-semanal">Quincenal</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Involúcrate activamente en la selección o inducción de personal cuando haya vacantes, aunque no seas responsable formal. Aprende el perfil de puesto de vendedor y jefe</div>
+        <div class="tarea-badge badge-unico">Cuando aplique</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Participar en al menos una toma de inventario completa y entender el proceso de ajustes, merma y confiabilidad de inventario</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Cubrir operativamente al gerente en alguna revisión de indicadores, presentación o junta en su ausencia. Buscar esa oportunidad activamente</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Desarrollar el hábito de dar retroalimentación breve y directa a vendedores cuando observes algo en piso, como lo haría un jefe de ventas</div>
+        <div class="tarea-badge badge-diario">Diario</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Armar un documento de resultados de la Fase 3 al concluirla: ¿qué indicador atacaste? ¿cuánto mejoró? ¿quién lo sabe? Ese es tu argumento más fuerte</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+
+      <div class="autoevaluacion">
+        <div class="autoevaluacion-title">⬡ Autoevaluación — Fase 3</div>
+        <p style="font-size:13px; color:#888; margin-bottom:16px;">Evalúate al terminar el mes 9.</p>
+
+        <div class="criterio">
+          <div class="criterio-label">¿Resolví un problema de ventas real fuera de mi área con número documentado? <span id="val3a">—</span></div>
+          <div class="estrellas" data-id="3a">
+            <div class="estrella" onclick="calificar('3a',1)">1</div>
+            <div class="estrella" onclick="calificar('3a',2)">2</div>
+            <div class="estrella" onclick="calificar('3a',3)">3</div>
+            <div class="estrella" onclick="calificar('3a',4)">4</div>
+            <div class="estrella" onclick="calificar('3a',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿El gerente y el director me ven como alguien que opera, no solo que hace marketing? <span id="val3b">—</span></div>
+          <div class="estrellas" data-id="3b">
+            <div class="estrella" onclick="calificar('3b',1)">1</div>
+            <div class="estrella" onclick="calificar('3b',2)">2</div>
+            <div class="estrella" onclick="calificar('3b',3)">3</div>
+            <div class="estrella" onclick="calificar('3b',4)">4</div>
+            <div class="estrella" onclick="calificar('3b',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Domino los procesos operativos básicos del Deber Ser de Gerente? <span id="val3c">—</span></div>
+          <div class="estrellas" data-id="3c">
+            <div class="estrella" onclick="calificar('3c',1)">1</div>
+            <div class="estrella" onclick="calificar('3c',2)">2</div>
+            <div class="estrella" onclick="calificar('3c',3)">3</div>
+            <div class="estrella" onclick="calificar('3c',4)">4</div>
+            <div class="estrella" onclick="calificar('3c',5)">5</div>
+          </div>
+        </div>
+        <div class="nota-autoevaluacion" id="nota3">
+          Evalúate primero para ver tu diagnóstico aquí.
+        </div>
+        <button class="btn-guardar" onclick="guardarFase(3)">Guardar autoevaluación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ====== FASE 4 ====== -->
+  <div class="fase" id="fase4">
+    <div class="fase-header" onclick="toggleFase('fase4')">
+      <div class="fase-numero">04</div>
+      <div class="fase-meta">
+        <div class="fase-tag">Noviembre 2026 – Abril 2027</div>
+        <div class="fase-titulo">Posicionamiento y Conversación Formal</div>
+        <div class="fase-periodo">Meses 7 – 12 · Hacerlo oficial</div>
+      </div>
+      <div class="fase-status">
+        <div class="fase-pct-wrap" id="pct4">0%</div>
+        <div class="fase-mini-bar"><div class="fase-mini-fill" id="bar4" style="width:0%"></div></div>
+      </div>
+      <div class="fase-chevron">▶</div>
+    </div>
+    <div class="fase-body">
+      <div class="objetivo">
+        <strong>¿Para qué sirve esta fase?</strong><br>
+        Las fases anteriores te prepararon. Esta fase se trata de hacerte visible ante las personas que toman la decisión y de sostener una conversación directa y estratégica sobre tu promoción. No es arrogancia — es claridad profesional. Los que ascienden en retail son los que piden y demuestran, no los que esperan.
+      </div>
+      <div class="tareas-header">Objetivos de la fase</div>
+
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Tener la conversación de seguimiento con tu gerente: "¿Qué indicadores concretos necesito demostrar para ser considerado como gerente? ¿Qué me falta en tu evaluación?" — Llevar preparado tu portafolio de evidencia</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Buscar un espacio de visibilidad directa con el Director de zona: una presentación de resultados, una propuesta de mejora, o un proyecto donde puedas aparecer en contexto de negocio</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Construir relación con al menos 2 aliados laterales: gerente de RR.HH., gerente de prevención u otro gerente de área. Su percepción de ti importa en el proceso de promoción</div>
+        <div class="tarea-badge badge-mensual">Mensual</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Preparar tu "expediente de candidato": un resumen de 2 páginas con tus logros del año, indicadores impactados y propuesta de valor como gerente. Que exista físicamente</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Mantener impecable tu área de marketing mientras ejecutas todo lo anterior. Tu credibilidad base no puede caer mientras escalas</div>
+        <div class="tarea-badge badge-diario">Diario</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Repasar el Deber Ser del GERENTE completo y hacer un ensayo mental: si mañana fueras gerente, ¿qué harías diferente en cada uno de los 6 bloques? Tener esa respuesta lista</div>
+        <div class="tarea-badge badge-unico">1 vez</div>
+      </div>
+      <div class="tarea" onclick="toggleTarea(this)">
+        <div class="tarea-check"></div>
+        <div class="tarea-texto">Si existe evaluación de desempeño formal en tu empresa para tu nivel, asegurarte de que tu autoevaluación refleje todo lo que construiste en el año, con evidencia</div>
+        <div class="tarea-badge badge-unico">Cuando aplique</div>
+      </div>
+
+      <div class="autoevaluacion">
+        <div class="autoevaluacion-title">⬡ Autoevaluación Final — Fase 4</div>
+        <p style="font-size:13px; color:#888; margin-bottom:16px;">Evalúate al mes 12. Esta es la que cuenta.</p>
+
+        <div class="criterio">
+          <div class="criterio-label">¿El director me conoce en contexto de negocio, no solo como Jefe de No Ventas? <span id="val4a">—</span></div>
+          <div class="estrellas" data-id="4a">
+            <div class="estrella" onclick="calificar('4a',1)">1</div>
+            <div class="estrella" onclick="calificar('4a',2)">2</div>
+            <div class="estrella" onclick="calificar('4a',3)">3</div>
+            <div class="estrella" onclick="calificar('4a',4)">4</div>
+            <div class="estrella" onclick="calificar('4a',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Tengo un expediente de candidato con evidencia real del año? <span id="val4b">—</span></div>
+          <div class="estrellas" data-id="4b">
+            <div class="estrella" onclick="calificar('4b',1)">1</div>
+            <div class="estrella" onclick="calificar('4b',2)">2</div>
+            <div class="estrella" onclick="calificar('4b',3)">3</div>
+            <div class="estrella" onclick="calificar('4b',4)">4</div>
+            <div class="estrella" onclick="calificar('4b',5)">5</div>
+          </div>
+        </div>
+        <div class="criterio">
+          <div class="criterio-label">¿Me siento listo para asumir el rol de Gerente si la oportunidad llegara mañana? <span id="val4c">—</span></div>
+          <div class="estrellas" data-id="4c">
+            <div class="estrella" onclick="calificar('4c',1)">1</div>
+            <div class="estrella" onclick="calificar('4c',2)">2</div>
+            <div class="estrella" onclick="calificar('4c',3)">3</div>
+            <div class="estrella" onclick="calificar('4c',4)">4</div>
+            <div class="estrella" onclick="calificar('4c',5)">5</div>
+          </div>
+        </div>
+        <div class="nota-autoevaluacion" id="nota4">
+          Evalúate primero para ver tu diagnóstico aquí.
+        </div>
+        <button class="btn-guardar" onclick="guardarFase(4)">Guardar autoevaluación</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MOTIVACIONAL -->
+  <div class="motivacional">
+    <div class="motivacional-quote">No necesitas demostrar que puedes<br><span>trabajar más.</span><br>Necesitas demostrar que puedes<br><span>mover sistemas y personas.</span></div>
+    <div class="motivacional-sub">— Plan de Desarrollo · Jefe de No Ventas → Gerente</div>
+  </div>
+
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast">✓ Guardado</div>
+
+<script>
+  // Estado en memoria
+  const estado = JSON.parse(localStorage.getItem('rutaGerente') || '{}');
+
+  function toggleFase(id) {
+    const fase = document.getElementById(id);
+    fase.classList.toggle('open');
+  }
+
+  function toggleTarea(el) {
+    el.classList.toggle('done');
+    guardarTareas();
+    actualizarBarras();
+    actualizarGlobal();
+  }
+
+  function calificar(id, val) {
+    const container = document.querySelector(`[data-id="${id}"]`);
+    const estrellas = container.querySelectorAll('.estrella');
+    estrellas.forEach((e, i) => {
+      e.classList.toggle('activa', i < val);
+    });
+    document.getElementById(`val${id}`).textContent = val + '/5';
+    if (!estado.evaluaciones) estado.evaluaciones = {};
+    estado.evaluaciones[id] = val;
+  }
+
+  function guardarFase(num) {
+    const criterios = ['a','b','c'];
+    let total = 0; let count = 0;
+    criterios.forEach(c => {
+      const key = num + c;
+      const val = estado.evaluaciones && estado.evaluaciones[key];
+      if (val) { total += val; count++; }
+    });
+
+    let nota = '';
+    if (count < 3) {
+      nota = '⚠️ Evalúa todos los criterios para ver tu diagnóstico completo.';
+    } else {
+      const prom = total / count;
+      if (prom >= 4.5) nota = '🟢 Excelente. Estás listo para avanzar a la siguiente fase con toda la confianza.';
+      else if (prom >= 3.5) nota = '🟡 Buen avance. Identifica el criterio más bajo y dale una semana más antes de pasar.';
+      else if (prom >= 2.5) nota = '🟠 Avance parcial. Regresa a las tareas incompletas de esta fase antes de continuar.';
+      else nota = '🔴 Esta fase necesita más trabajo. No avances hasta tener al menos 3/5 en cada criterio.';
+    }
+
+    document.getElementById(`nota${num}`).textContent = nota;
+    localStorage.setItem('rutaGerente', JSON.stringify(estado));
+    showToast();
+  }
+
+  function guardarTareas() {
+    const tareas = document.querySelectorAll('.tarea');
+    const data = [];
+    tareas.forEach((t, i) => data.push(t.classList.contains('done')));
+    estado.tareas = data;
+    localStorage.setItem('rutaGerente', JSON.stringify(estado));
+  }
+
+  function cargarTareas() {
+    if (!estado.tareas) return;
+    const tareas = document.querySelectorAll('.tarea');
+    tareas.forEach((t, i) => {
+      if (estado.tareas[i]) t.classList.add('done');
+    });
+  }
+
+  function cargarEvaluaciones() {
+    if (!estado.evaluaciones) return;
+    Object.entries(estado.evaluaciones).forEach(([id, val]) => {
+      calificar(id, val);
+    });
+  }
+
+  function actualizarBarras() {
+    const fases = [1,2,3,4];
+    const faseTareas = [8,7,8,7];
+    let inicios = [0,8,15,23];
+
+    const tareas = document.querySelectorAll('.tarea');
+
+    fases.forEach((num, fi) => {
+      const inicio = inicios[fi];
+      const total = faseTareas[fi];
+      let done = 0;
+      for (let i = inicio; i < inicio + total; i++) {
+        if (tareas[i] && tareas[i].classList.contains('done')) done++;
+      }
+      const pct = Math.round((done / total) * 100);
+      document.getElementById(`bar${num}`).style.width = pct + '%';
+      document.getElementById(`pct${num}`).textContent = pct + '%';
+    });
+  }
+
+  function actualizarGlobal() {
+    const tareas = document.querySelectorAll('.tarea');
+    const total = tareas.length;
+    let done = 0;
+    tareas.forEach(t => { if (t.classList.contains('done')) done++; });
+    const pct = Math.round((done / total) * 100);
+    document.getElementById('barraGlobal').style.width = pct + '%';
+    document.getElementById('pctGlobal').textContent = pct + '%';
+    document.getElementById('tareasTotal').textContent = total;
+    document.getElementById('tareasDone').textContent = done;
+  }
+
+  function showToast() {
+    const t = document.getElementById('toast');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 2000);
+  }
+
+  // Init
+  cargarTareas();
+  cargarEvaluaciones();
+  actualizarBarras();
+  actualizarGlobal();
+
+  // Abrir fase 1 por defecto
+  document.getElementById('fase1').classList.add('open');
+</script>
+</body>
+</html>
